@@ -3,9 +3,14 @@
 #include <float.h>
 #include <stdint.h>
 
+/*
+Fixed point arithmetic
+operator strength reduction
+*/
+
 int main() {
-	int K = 14;
-    int M = 6 << K;
+	int K = 14; // precision bits
+    int M = 6 << K; // sqrt(M)
 	int i;
     uint32_t f = 1 << K;
     uint32_t f_sqrt =  1 << K;
