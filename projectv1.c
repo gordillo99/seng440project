@@ -5,17 +5,19 @@
 int main() {
 	int K = 32;
 	int i;
-  float M = 0.1;
-	float LUT[K];
+    double M = 0.1;
+	double LUT[K];
 
 	for (i = 0; i < K - 1; i++) {
-		LUT[i] = log2(1 + pow(2, -i));				
+		LUT[i] = log2(1 + pow(2, -i));
+        printf("%d: %lf\n",i,LUT[i]);
+        			
 	}
 
-	float f = 1.0;
+	double f = 1.0;
 	for (i = 0; i < K - 1; i++) {
-		float MU = M - LUT[i];
-		float PHI = f * (1 + pow(2, -i));
+		double MU = M - LUT[i];
+		double PHI = f * (1 + pow(2, -i));
 
 		if (MU >= 0) {
 			M = MU;
