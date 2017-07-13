@@ -12,7 +12,9 @@ uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 	register uint32_t m = M << K; // sqrt(M)
 	register uint32_t MU;
 	register uint32_t MU_SQRT;
-	register uint32_t temp_a = (1 << K) + (2 << K);
+	register uint32_t temp_a = 3 << K;
+	printf("%d\n", temp_a);
+	printf("%d\n", 3 << K);
 
 	for (i ^= i; i != K; i++) {
 		MU = (f * (temp_a * temp_a >> K)) >> K; 
