@@ -5,7 +5,7 @@
 
 int main() {
 	  int K = 14;
-    int M = 6;
+    int M = 2;
 	  int i;
     double f = 1;
     double f_sqrt = 1;
@@ -20,7 +20,7 @@ int main() {
 		}
 	}
 
-	printf("%lf\n", f_sqrt / pow(2,K));
+	printf("%lf\n", f_sqrt);
 	return 0;
 }
 

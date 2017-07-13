@@ -2,8 +2,8 @@
 #include <stdint.h>
 
 /*
-Fixed point arithmetic
-operator strength reduction
+	Fixed point arithmetic
+	operator strength reduction (remove pow)
 */
 
 uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
@@ -11,10 +11,14 @@ uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 	  uint32_t i;
     uint32_t f = 1 << K;
     uint32_t f_sqrt =  1 << K;
+		uint32_t a;
+		uint32_t MU;
+		uint32_t MU_SQRT;
 
 	for (i = 0; i < K - 1; i++) {
-		uint32_t MU = (f * (((1 << K) + (2 << K - i)) * ((1 << K) + (2 << K - i)) >> K)) >> K; 
-		uint32_t MU_SQRT = (f_sqrt * ((1 << K) + (2 << K - i))) >> K;
+		a = (1 << K) + (2 << K - i);
+		MU = (f * (a * a >> K)) >> K; 
+		MU_SQRT = (f_sqrt * a) >> K;
         
 		if (MU <= M) {
 			f = MU;
@@ -26,7 +30,7 @@ uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 
 int main() {
 	uint32_t K = 14; // precision bits
-  uint32_t M = 6 << K; // sqrt(M)
+  uint32_t M = 2; // sqrt(M)
 	
 	printf("%d\n", calculate_sqrt(K, M));
 	return 0;
