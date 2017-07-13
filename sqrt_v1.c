@@ -4,9 +4,9 @@
 #include <stdint.h>
 
 int main() {
-	int K = 14;
+	  int K = 14;
     int M = 6;
-	int i;
+	  int i;
     double f = 1;
     double f_sqrt = 1;
 
@@ -20,7 +20,7 @@ int main() {
 		}
 	}
 
-	printf("%lf\n", f_sqrt);
+	printf("%lf\n", f_sqrt / pow(2,K));
 	return 0;
 }
 

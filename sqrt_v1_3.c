@@ -2,9 +2,7 @@
 #include <stdint.h>
 
 /*
-loop optimization (i counter)
-variable caching
-register caching (also declared in number of usage)
+software pipeline
 */
 
 uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
@@ -12,19 +10,19 @@ uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 	register uint32_t f = 1 << K;
 	register uint32_t f_sqrt =  1 << K;
 	register uint32_t m = M << K; // sqrt(M)
-	register uint32_t a;
 	register uint32_t MU;
 	register uint32_t MU_SQRT;
+	register uint32_t temp_a = (1 << K) + (2 << K);
 
-	for (i ^= i; i != K - 1; i++) {
-	  a = (1 << K) + (2 << K - i);
-		MU = (f * (a * a >> K)) >> K; 
-		MU_SQRT = (f_sqrt * a) >> K;
+	for (i ^= i; i != K; i++) {
+		MU = (f * (temp_a * temp_a >> K)) >> K; 
+		MU_SQRT = (f_sqrt * temp_a) >> K;
+		temp_a = (1 << K) + (2 << K - i + 1);
 	      
 		if (MU <= m) {
 			f = MU;
 			f_sqrt = MU_SQRT;		
-		}
+		}		
 	}
 	return f_sqrt;
 }
