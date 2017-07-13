@@ -30,55 +30,37 @@ calculate_sqrt:
 	ldr	r2, [fp, #-32]
 	mov	r3, #1
 	mov	r3, r3, asl r2
-	str	r3, [fp, #-20]
+	str	r3, [fp, #-24]
 	ldr	r2, [fp, #-32]
 	mov	r3, #1
 	mov	r3, r3, asl r2
-	str	r3, [fp, #-16]
+	str	r3, [fp, #-20]
 	mov	r3, #0
-	str	r3, [fp, #-24]
+	str	r3, [fp, #-28]
 	b	.L2
 .L4:
 	ldr	r2, [fp, #-32]
 	mov	r3, #1
 	mov	r1, r3, asl r2
 	ldr	r2, [fp, #-32]
-	ldr	r3, [fp, #-24]
-	rsb	r3, r3, r2
-	mov	r2, r3
-	mov	r3, #2
-	mov	r3, r3, asl r2
-	add	r0, r1, r3
-	ldr	r2, [fp, #-32]
-	mov	r3, #1
-	mov	r1, r3, asl r2
-	ldr	r2, [fp, #-32]
-	ldr	r3, [fp, #-24]
+	ldr	r3, [fp, #-28]
 	rsb	r3, r3, r2
 	mov	r2, r3
 	mov	r3, #2
 	mov	r3, r3, asl r2
 	add	r3, r1, r3
-	mul	r2, r3, r0
+	str	r3, [fp, #-16]
+	ldr	r2, [fp, #-16]
+	ldr	r3, [fp, #-16]
+	mul	r2, r3, r2
 	ldr	r3, [fp, #-32]
-	mov	r3, r2, asr r3
-	mov	r2, r3
-	ldr	r3, [fp, #-20]
+	mov	r2, r2, lsr r3
+	ldr	r3, [fp, #-24]
 	mul	r2, r3, r2
 	ldr	r3, [fp, #-32]
 	mov	r3, r2, lsr r3
 	str	r3, [fp, #-12]
-	ldr	r2, [fp, #-32]
-	mov	r3, #1
-	mov	r1, r3, asl r2
-	ldr	r2, [fp, #-32]
-	ldr	r3, [fp, #-24]
-	rsb	r3, r3, r2
-	mov	r2, r3
-	mov	r3, #2
-	mov	r3, r3, asl r2
-	add	r3, r1, r3
-	mov	r2, r3
+	ldr	r2, [fp, #-20]
 	ldr	r3, [fp, #-16]
 	mul	r2, r3, r2
 	ldr	r3, [fp, #-32]
@@ -89,20 +71,20 @@ calculate_sqrt:
 	cmp	r2, r3
 	bhi	.L3
 	ldr	r3, [fp, #-12]
-	str	r3, [fp, #-20]
-	ldr	r3, [fp, #-8]
-	str	r3, [fp, #-16]
-.L3:
-	ldr	r3, [fp, #-24]
-	add	r3, r3, #1
 	str	r3, [fp, #-24]
+	ldr	r3, [fp, #-8]
+	str	r3, [fp, #-20]
+.L3:
+	ldr	r3, [fp, #-28]
+	add	r3, r3, #1
+	str	r3, [fp, #-28]
 .L2:
 	ldr	r3, [fp, #-32]
 	sub	r2, r3, #1
-	ldr	r3, [fp, #-24]
+	ldr	r3, [fp, #-28]
 	cmp	r2, r3
 	bhi	.L4
-	ldr	r3, [fp, #-16]
+	ldr	r3, [fp, #-20]
 	mov	r0, r3
 	add	sp, fp, #0
 	ldmfd	sp!, {fp}
@@ -123,11 +105,9 @@ main:
 	stmfd	sp!, {fp, lr}
 	add	fp, sp, #4
 	sub	sp, sp, #8
-	mov	r3, #14
+	mov	r3, #13
 	str	r3, [fp, #-12]
-	ldr	r2, [fp, #-12]
-	mov	r3, #6
-	mov	r3, r3, asl r2
+	mov	r3, #2
 	str	r3, [fp, #-8]
 	ldr	r0, [fp, #-12]
 	ldr	r1, [fp, #-8]

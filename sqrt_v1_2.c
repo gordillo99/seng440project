@@ -12,17 +12,15 @@ uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 	register uint32_t i;
 	register uint32_t f = 1 << K;
 	register uint32_t f_sqrt = 1 << K;
-	register uint32_t m = M << K; // sqrt(M)
-	register uint32_t a;
 	register uint32_t MU;
 	register uint32_t MU_SQRT;
+	M = M << K; // final output = sqrt(M)
 
 	for (i ^= i; i != K - 1; i++) {
-	  a = f+f+f+f;
-		MU = f + (a >> i) + (a >> (i + i)); // previously (f * (a * a >> K)) >> K;      
-		MU_SQRT = f_sqrt + (f_sqrt >> i - 1); // previously (f_sqrt * a) >> K;
+		MU = f + ( (f << 2) >> i ) + ( (f << 2) >> (i << 1) ); // previously (f * (a * a >> K)) >> K;      
+		MU_SQRT = f_sqrt + ( f_sqrt >> (i - 1) ); // previously (f_sqrt * a) >> K;
 		
-		if (MU <= m) {
+		if (MU <= M) {
 			f = MU;
 			f_sqrt = MU_SQRT;		
 		}

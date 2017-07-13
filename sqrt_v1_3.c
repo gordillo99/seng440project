@@ -2,36 +2,42 @@
 #include <stdint.h>
 
 /*
-software pipeline
+	loop unrolling
 */
 
 uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 	register uint32_t i;
 	register uint32_t f = 1 << K;
-	register uint32_t f_sqrt =  1 << K;
-	register uint32_t m = M << K; // sqrt(M)
+	register uint32_t f_sqrt = 1 << K;
 	register uint32_t MU;
 	register uint32_t MU_SQRT;
-	register uint32_t temp_a = 3 << K;
-	printf("%d\n", temp_a);
-	printf("%d\n", 3 << K);
+	M = M << K; // final output = sqrt(M)
 
-	for (i ^= i; i != K; i++) {
-		MU = (f * (temp_a * temp_a >> K)) >> K; 
-		MU_SQRT = (f_sqrt * temp_a) >> K;
-		temp_a = (1 << K) + (2 << K - i + 1);
-	      
-		if (MU <= m) {
+	// TODO: verify the actual number of iterations
+	for (i ^= i; i <= K; i += 2) { // have to use <= for loop unrolling
+		MU = f + ( (f << 2) >> i ) + ( (f << 2) >> (i << 1) );    
+		MU_SQRT = f_sqrt + ( f_sqrt >> (i - 1) );
+		
+		if (MU <= M) {
 			f = MU;
 			f_sqrt = MU_SQRT;		
-		}		
+		}
+
+		MU = f + ( (f << 2) >> (i + 1) ) + ( (f << 2) >> ((i + 1) << 1) );    
+		MU_SQRT = f_sqrt + ( f_sqrt >> i );
+		
+		if (MU <= M) {
+			f = MU;
+			f_sqrt = MU_SQRT;		
+		}
 	}
+
 	return f_sqrt;
 }
 
 int main() {
-	uint32_t K = 14; // precision bits
-  uint32_t M = 6; // sqrt(M)
+	uint32_t K = 12; // precision bits
+  uint32_t M = 2; // sqrt(M)
 	
 	printf("%d\n", calculate_sqrt(K, M));
 	return 0;
