@@ -14,17 +14,17 @@ uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 	M = M << K; // final output = sqrt(M)
 
 	// TODO: verify the actual number of iterations
-	for (i ^= i; i <= K; i += 2) { // have to use <= for loop unrolling
-		MU = f + ( (f << 2) >> i ) + ( (f << 2) >> (i << 1) );    
-		MU_SQRT = f_sqrt + ( f_sqrt >> (i - 1) );
+	for (i ^= i; i <= K - 1; i += 2) { // have to use <= for loop unrolling
+		MU = f + ( (f+f) >> i ) + ( f >> (i << 1) );    
+		MU_SQRT = f_sqrt + ( f_sqrt >> i );
 		
 		if (MU <= M) {
 			f = MU;
 			f_sqrt = MU_SQRT;		
 		}
 
-		MU = f + ( (f << 2) >> (i + 1) ) + ( (f << 2) >> ((i + 1) << 1) );    
-		MU_SQRT = f_sqrt + ( f_sqrt >> i );
+		MU = f + ( (f+f) >> (i+1) ) + ( f >> ((i+1) << 1) );    
+		MU_SQRT = f_sqrt + ( f_sqrt >> (i+1) );
 		
 		if (MU <= M) {
 			f = MU;
@@ -36,7 +36,7 @@ uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 }
 
 int main() {
-	uint32_t K = 12; // precision bits
+	uint32_t K = 14; // precision bits
   uint32_t M = 2; // sqrt(M)
 	
 	printf("%d\n", calculate_sqrt(K, M));

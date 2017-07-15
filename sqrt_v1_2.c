@@ -17,8 +17,8 @@ uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 	M = M << K; // final output = sqrt(M)
 
 	for (i ^= i; i != K - 1; i++) {
-		MU = f + ( (f << 2) >> i ) + ( (f << 2) >> (i << 1) ); // previously (f * (a * a >> K)) >> K;      
-		MU_SQRT = f_sqrt + ( f_sqrt >> (i - 1) ); // previously (f_sqrt * a) >> K;
+		MU = f + ( (f+f) >> i ) + ( f >> (i << 1) ); // previously (f * (a * a >> K)) >> K;      
+		MU_SQRT = f_sqrt + ( f_sqrt >> i ); // previously (f_sqrt * a) >> K;
 		
 		if (MU <= M) {
 			f = MU;
