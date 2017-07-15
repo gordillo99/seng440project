@@ -4,6 +4,7 @@
 /*
 	Fixed point arithmetic
 	operator strength reduction (remove pow)
+    variable caching
 */
 
 uint32_t calculate_sqrt(uint32_t K, uint32_t M) {

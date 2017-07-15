@@ -3,7 +3,6 @@
 
 /*
 	loop optimization (i counter)
-	variable caching
 	register caching (also declared in number of usage)
 	operator strength reduction (remove multiplications)
 */
