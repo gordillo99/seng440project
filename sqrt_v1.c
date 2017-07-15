@@ -4,9 +4,9 @@
 #include <stdint.h>
 
 int main() {
-	int K = 14;
-    int M = 6;
-	int i;
+	  int K = 14;
+    int M = 2;
+	  int i;
     double f = 1;
     double f_sqrt = 1;
 

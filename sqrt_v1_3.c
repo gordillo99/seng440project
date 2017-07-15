@@ -2,9 +2,7 @@
 #include <stdint.h>
 
 /*
-	loop optimization (i counter)
-	register caching (also declared in number of usage)
-	operator strength reduction (remove multiplications)
+	loop unrolling
 */
 
 uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
@@ -15,9 +13,18 @@ uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 	register uint32_t MU_SQRT;
 	M = M << K; // final output = sqrt(M)
 
-	for (i ^= i; i != K - 1; i++) {
-		MU = f + ( (f << 1) >> i ) + ( f >> (i << 1) ); // previously (f * (a * a >> K)) >> K;      
-		MU_SQRT = f_sqrt + ( f_sqrt >> i ); // previously (f_sqrt * a) >> K;
+	// TODO: verify the actual number of iterations
+	for (i ^= i; i <= K - 1; i += 2) { // have to use <= for loop unrolling
+		MU = f + ( (f << 1) >> i ) + ( f >> (i << 1) );    
+		MU_SQRT = f_sqrt + ( f_sqrt >> i );
+		
+		if (MU <= M) {
+			f = MU;
+			f_sqrt = MU_SQRT;		
+		}
+
+		MU = f + ( (f << 1) >> (i+1) ) + ( f >> ((i+1) << 1) );    
+		MU_SQRT = f_sqrt + ( f_sqrt >> (i+1) );
 		
 		if (MU <= M) {
 			f = MU;
