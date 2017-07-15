@@ -15,7 +15,7 @@ uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 
 	// TODO: verify the actual number of iterations
 	for (i ^= i; i <= K - 1; i += 2) { // have to use <= for loop unrolling
-		MU = f + ( (f+f) >> i ) + ( f >> (i << 1) );    
+		MU = f + ( (f << 1) >> i ) + ( f >> (i << 1) );    
 		MU_SQRT = f_sqrt + ( f_sqrt >> i );
 		
 		if (MU <= M) {
@@ -23,7 +23,7 @@ uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 			f_sqrt = MU_SQRT;		
 		}
 
-		MU = f + ( (f+f) >> (i+1) ) + ( f >> ((i+1) << 1) );    
+		MU = f + ( (f << 1) >> (i+1) ) + ( f >> ((i+1) << 1) );    
 		MU_SQRT = f_sqrt + ( f_sqrt >> (i+1) );
 		
 		if (MU <= M) {
