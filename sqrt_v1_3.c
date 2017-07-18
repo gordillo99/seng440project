@@ -14,7 +14,6 @@ uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 	register uint32_t small_k = K - 1;
 	M = M << K; // final output = sqrt(M)
 
-	// TODO: verify the actual number of iterations
 	for (i ^= i; i <= small_k; i += 2) { // have to use <= for loop unrolling
 		MU = f + ( (f << 1) >> i ) + ( f >> (i << 1) );    
 		MU_SQRT = f_sqrt + ( f_sqrt >> i );
