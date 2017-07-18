@@ -18,27 +18,27 @@ calculate_sqrt:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
-	mov	r3, #1
-	stmfd	sp!, {r4, r5, r6}
-	mov	r4, r3, asl r0
-	subs	r6, r0, #1
-	mov	r5, r1, asl r0
-	moveq	r0, r4
-	beq	.L3
-	mov	r0, r4
-	mov	ip, #0
+	mov	r3, #1 //
+	stmfd	sp!, {r4, r5, r6} // 
+	mov	r4, r3, asl r0 //
+	subs	r6, r0, #1 //
+	mov	r5, r1, asl r0 //
+	moveq	r0, r4 //
+	beq	.L3 
+	mov	r0, r4 //
+	mov	ip, #0 //
 .L8:
-	mov	r3, ip, asl #1
-	add	r3, r4, r4, lsr r3
-	mov	r2, r4, asl #1
-	add	r3, r3, r2, lsr ip
-	add	r1, r0, r0, lsr ip
-	cmp	r5, r3
-	add	ip, ip, #1
-	movcs	r4, r3
-	movcs	r0, r1
-	cmp	r6, ip
-	bne	.L8
+	mov	r3, ip, asl #1 //
+	add	r3, r4, r4, lsr r3 //
+	mov	r2, r4, asl #1 //
+	add	r3, r3, r2, lsr ip //
+	add	r1, r0, r0, lsr ip //
+	cmp	r5, r3 //
+	add	ip, ip, #1 //
+	movcs	r4, r3 //
+	movcs	r0, r1 //
+	cmp	r6, ip //
+	bne	.L8 //
 .L3:
 	ldmfd	sp!, {r4, r5, r6}
 	bx	lr

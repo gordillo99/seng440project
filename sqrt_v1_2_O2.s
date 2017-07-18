@@ -20,23 +20,23 @@ calculate_sqrt:
 	@ link register save eliminated.
 	mov	r3, #1
 	stmfd	sp!, {r4, r5}
-	mov	r4, r3, asl r0
-	subs	r5, r0, #1
-	mov	r1, r1, asl r0
-	moveq	r0, r4
+	mov	r4, r3, asl r0 // r4 = f = 1 << K
+	subs	r5, r0, #1 // r5 = small_k = K - 1
+	mov	r1, r1, asl r0 // r1 = M = M << K;
+	moveq	r0, r4 // f_sqrt = f
 	beq	.L3
-	mov	r0, r4
-	mov	ip, #0
+	mov	r0, r4 // r0 = f
+	mov	ip, #0 // ip = 0
 .L5:
-	mov	r3, ip, asl #1
-	add	r3, r4, r4, lsr r3
-	mov	r2, r4, asl #1
-	add	r3, r3, r2, lsr ip
-	cmp	r1, r3
-	addcs	r0, r0, r0, lsr ip
-	add	ip, ip, #1
-	movcs	r4, r3
-	cmp	r5, ip
+	mov	r3, ip, asl #1 //  r3 = i << 1
+	add	r3, r4, r4, lsr r3 // r3 = f + f >> (i << 1)
+	mov	r2, r4, asl #1 // r2 = f << 1
+	add	r3, r3, r2, lsr ip // r3 = r3 + r2 >> i = r3 + ( (f << 1) >> i )
+	cmp	r1, r3 // MU (r3) <= M (r1)
+	addcs	r0, r0, r0, lsr ip // r0 = f_sqrt (r0) + ( f_sqrt (r0) >> i )
+	add	ip, ip, #1 // i ++
+	movcs	r4, r3 // f = MU
+	cmp	r5, ip // i != small_k
 	bne	.L5
 .L3:
 	ldmfd	sp!, {r4, r5}
