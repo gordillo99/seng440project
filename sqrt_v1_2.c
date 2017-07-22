@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdint.h>
-
 /*
 	loop optimization (i counter)
 	register caching (also declared in number of usage)
@@ -29,7 +28,7 @@ uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 
 int main() {
 	uint32_t K = 29; // precision bits
-  	uint32_t M = (unsigned int) (3.625 * (1 << K)); //replace 2.5 with the number
+  	uint32_t M = (unsigned int) (3.625 * (1 << K));
 	M = calculate_sqrt(K, M);
 	printf("%f\n", (float) M/(1 << K));
 	return 0;
