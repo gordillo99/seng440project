@@ -10,7 +10,7 @@
 uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 	register uint32_t i;
 	register uint32_t f = 1 << K;
-	register uint32_t f_sqrt = 1 << K;
+	register uint32_t f_sqrt = f;
 	register uint32_t MU;
 
 	for (i ^= i; i != K - 1; i++) {
