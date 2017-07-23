@@ -4,11 +4,11 @@
 #include <stdint.h>
 
 int main() {
-	  int K = 14;
-    int M = 2;
-	  int i;
-    double f = 1;
-    double f_sqrt = 1;
+	int K = 29;
+    float M = 2.0;
+	int i;
+    double f = 1.0;
+    double f_sqrt = 1.0;
 
 	for (i = 0; i < K - 1; i++) {
 		double MU = f * (1 + pow(2,-i)) * (1 + pow(2,-i)); 

@@ -8,7 +8,7 @@
 */
 
 uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
-    M = M << K;
+    
     uint32_t i;
     uint32_t f = 1 << K;
     uint32_t f_sqrt = 1 << K;
@@ -31,9 +31,9 @@ uint32_t calculate_sqrt(uint32_t K, uint32_t M) {
 
 int main() {
 	uint32_t K = 14; // precision bits
-    uint32_t M = 2; // sqrt(M)
-	
-	printf("%d\n", calculate_sqrt(K, M));
+    uint32_t M = (unsigned int) (2.5 * (1 << K)); // sqrt(M)
+	M = calculate_sqrt(K, M);
+	printf("%f\n", (float) M/(1 << K));
 	return 0;
 }
 
